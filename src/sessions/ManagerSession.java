@@ -7,9 +7,9 @@ import agency.RentalAgency;
 import rental.CarType;
 import rental.ICarRentalCompany;
 
-public class ManagementSession extends Session implements IManagementSession{
+public class ManagerSession extends Session implements IManagerSession{
 
-	public ManagementSession(int ID, RentalAgency rentalAgency) {
+	public ManagerSession(int ID, RentalAgency rentalAgency) {
 		super(ID, rentalAgency);
 		// TODO Auto-generated constructor stub
 	}

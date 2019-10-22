@@ -7,15 +7,15 @@ import java.rmi.registry.Registry;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-import java.util.StringTokenizer;
-
 import rental.CarType;
 import rental.ICarRentalCompany;
 import rental.Quote;
 import rental.Reservation;
 import rental.ReservationConstraints;
+import sessions.IManagerSession;
+import sessions.IReservationSession;
 
-public class Client<ReservationSession, ManagerSession> extends AbstractTestManagement {
+public class Client extends AbstractTestManagement<IReservationSession, IManagerSession> {
 
 	/********
 	 * MAIN *
@@ -129,62 +129,65 @@ public class Client<ReservationSession, ManagerSession> extends AbstractTestMana
 	}
 
 	@Override
-	protected Object getNewReservationSession(String name) throws Exception {
+	protected Set<String> getBestClients(IManagerSession ms) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected Object getNewManagerSession(String name, String carRentalName) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected void checkForAvailableCarTypes(Object session, Date start, Date end) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void addQuoteToSession(Object session, String name, Date start, Date end, String carType, String region)
+	protected String getCheapestCarType(IReservationSession session, Date start, Date end, String region)
 			throws Exception {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected CarType getMostPopularCarTypeIn(IManagerSession ms, String carRentalCompanyName, int year)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected void checkForAvailableCarTypes(IReservationSession session, Date start, Date end) throws Exception {
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	protected List confirmQuotes(Object session, String name) throws Exception {
+	protected void addQuoteToSession(IReservationSession session, String name, Date start, Date end, String carType,
+			String region) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected List<Reservation> confirmQuotes(IReservationSession session, String name) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected int getNumberOfReservationsByRenter(Object ms, String clientName) throws Exception {
+	protected int getNumberOfReservationsByRenter(IManagerSession ms, String clientName) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	protected int getNumberOfReservationsForCarType(Object ms, String carRentalName, String carType) throws Exception {
+	protected int getNumberOfReservationsForCarType(IManagerSession ms, String carRentalName, String carType)
+			throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	protected Set getBestClients(Object ms) throws Exception {
+	protected IReservationSession getNewReservationSession(String name) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected String getCheapestCarType(Object session, Date start, Date end, String region) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected CarType getMostPopularCarTypeIn(Object ms, String carRentalCompanyName, int year) throws Exception {
+	protected IManagerSession getNewManagerSession(String name, String carRentalName) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

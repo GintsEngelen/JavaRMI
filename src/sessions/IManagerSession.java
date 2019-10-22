@@ -7,7 +7,7 @@ import java.util.List;
 import rental.CarType;
 import rental.ICarRentalCompany;
 
-public interface IManagementSession extends Remote{
+public interface IManagerSession extends Remote{
 
 	public void registerCarRentalCompany(ICarRentalCompany carRentalCompany) throws RemoteException;
 	
