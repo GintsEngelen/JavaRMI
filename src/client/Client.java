@@ -157,7 +157,7 @@ public class Client extends AbstractTestManagement<IReservationSession, IManager
 	@Override
 	protected void addQuoteToSession(IReservationSession session, String name, Date start, Date end, String carType,
 			String region) throws Exception {
-		// TODO Auto-generated method stub
+		session.addQuote(name, start, end, carType, region);
 		
 	}
 
@@ -171,8 +171,7 @@ public class Client extends AbstractTestManagement<IReservationSession, IManager
      */
 	@Override
 	protected List<Reservation> confirmQuotes(IReservationSession session, String name) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return session.confirmQuotes(name);
 	}
 
 	/**
@@ -188,8 +187,7 @@ public class Client extends AbstractTestManagement<IReservationSession, IManager
      */
 	@Override
 	protected int getNumberOfReservationsByRenter(IManagerSession ms, String clientName) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return ms.getNumberOfReservationsByRenter(clientName);
 	}
 
 	/**
@@ -205,8 +203,7 @@ public class Client extends AbstractTestManagement<IReservationSession, IManager
 	@Override
 	protected int getNumberOfReservationsForCarType(IManagerSession ms, String carRentalName, String carType)
 			throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return ms.getNumberOfReservationsForCarTypeForCarRentalCompany(carType, carRentalName);
 	}
 
 	@Override
