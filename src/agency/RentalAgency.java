@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -63,38 +64,28 @@ public class RentalAgency implements IRentalAgency{
 
 	@Override
 	public IManagerSession getNewManagerSession(String name) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			ManagerSession reservationSession = 
+					new ManagerSession(0, (IRentalAgency) registry.lookup("rentalAgency"), name);
+			return (IManagerSession) UnicastRemoteObject.exportObject(reservationSession, 0);
+		} catch (NotBoundException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public List<CarType> getAvailableCarTypes(Date start, Date end) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<CarType> types = new ArrayList<>();
+		for(ICarRentalCompany crc : this.carRentalCompanies.values()) {
+			for(CarType t : crc.getAvailableCarTypes(start, end)) {
+				types.add(t);
+			}
+		}
+		return types;
 	}
 
-	@Override
-	public Quote createQuote(ReservationConstraints constraints, String clientName) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public Reservation confirmQuote(Quote quote) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Reservation> getReservationsByRenter(String clientName) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getNumberOfReservationsForCarType(String carType) throws RemoteException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 
 }

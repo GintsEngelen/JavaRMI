@@ -2,6 +2,7 @@ package sessions;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.Date;
 import java.util.List;
 
 import rental.CarType;
@@ -17,6 +18,6 @@ public interface IReservationSession extends Remote {
 	
 	public List<CarType> getAvailableCarTypes() throws RemoteException;
 	
-	public CarType getCheapestCarType() throws RemoteException;
+	public String getCheapestCarType(Date start, Date end, String region) throws RemoteException;
 	
 }

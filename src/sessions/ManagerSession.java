@@ -9,10 +9,12 @@ import rental.CarType;
 import rental.ICarRentalCompany;
 
 public class ManagerSession extends Session implements IManagerSession{
+	
+	private String customer;
 
-	public ManagerSession(int ID, IRentalAgency rentalAgency) {
+	public ManagerSession(int ID, IRentalAgency rentalAgency, String customer) {
 		super(ID, rentalAgency);
-		// TODO Auto-generated constructor stub
+		this.customer = customer;
 	}
 
 	@Override
