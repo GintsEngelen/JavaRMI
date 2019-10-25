@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import rental.CarType;
 import rental.ICarRentalCompany;
@@ -75,7 +76,8 @@ public class RentalAgency implements IRentalAgency{
 	}
 
 	@Override
-	public List<CarType> getAvailableCarTypes(Date start, Date end) throws RemoteException {
+	public List<CarType> getAvailableCarTypes(Date start, Date end, String region) throws RemoteException {
+		//TODO: WAAR KOMT DIE REGION VANDAAAAAAANNNN
 		ArrayList<CarType> types = new ArrayList<>();
 		for(ICarRentalCompany crc : this.carRentalCompanies.values()) {
 			for(CarType t : crc.getAvailableCarTypes(start, end)) {
@@ -84,6 +86,55 @@ public class RentalAgency implements IRentalAgency{
 		}
 		return types;
 	}
+
+	@Override
+	public void addCarRentalCompany(ICarRentalCompany carRentalCompany) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeCarRentalCompany(ICarRentalCompany carRentalCompany) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<ICarRentalCompany> getAllCarRentalCompanies() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getNumberOfReservationsForCarTypeForCarRentalCompany(String carType, String company) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getNumberOfReservationsByRenter(String clientName) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public CarType getMostPopularCarType(String companyName, int year) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<String> getBestCustomers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public double getRentalPriceForCarTypeForCompany(String rentalCompany, String carType) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 
 	

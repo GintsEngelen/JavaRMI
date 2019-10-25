@@ -2,6 +2,7 @@ package sessions;
 
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.Set;
 
 import agency.IRentalAgency;
 import agency.RentalAgency;
@@ -19,40 +20,42 @@ public class ManagerSession extends Session implements IManagerSession{
 
 	@Override
 	public void registerCarRentalCompany(ICarRentalCompany carRentalCompany) throws RemoteException {
-		// TODO Auto-generated method stub
+		super.getRentalAgency().addCarRentalCompany(carRentalCompany);
 		
 	}
 
 	@Override
 	public void unRegisterCarRentalCompany(ICarRentalCompany carRentalCompany) throws RemoteException {
-		// TODO Auto-generated method stub
+		super.getRentalAgency().removeCarRentalCompany(carRentalCompany);
 		
 	}
 
 	@Override
 	public List<ICarRentalCompany> getAllCarRentalCompanies() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		return super.getRentalAgency().getAllCarRentalCompanies();
 	}
 
 	@Override
 	public int getNumberOfReservationsForCarTypeForCarRentalCompany(String carType, String company)
 			throws RemoteException {
-		// TODO Auto-generated method stub
-		return 0;
+		return super.getRentalAgency().getNumberOfReservationsForCarTypeForCarRentalCompany(carType, company);
 	}
 
 	@Override
-	public List<String> getBestCustomers() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<String> getBestCustomers() throws RemoteException {
+		return super.getRentalAgency().getBestCustomers();
 	}
 
 	@Override
 	public CarType getMostPopularCarType(String companyName, int year) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		return super.getRentalAgency().getMostPopularCarType(companyName, year);
 	}
+
+	@Override
+	public int getNumberOfReservationsByRenter(String clientName) {
+		return super.getRentalAgency().getNumberOfReservationsByRenter(clientName);
+	}
+
 	
 
 }
