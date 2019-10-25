@@ -3,13 +3,14 @@ package sessions;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import agency.IRentalAgency;
 import agency.RentalAgency;
 import rental.CarType;
 import rental.ICarRentalCompany;
 
 public class ManagerSession extends Session implements IManagerSession{
 
-	public ManagerSession(int ID, RentalAgency rentalAgency) {
+	public ManagerSession(int ID, IRentalAgency rentalAgency) {
 		super(ID, rentalAgency);
 		// TODO Auto-generated constructor stub
 	}

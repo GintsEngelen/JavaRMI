@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
+import agency.IRentalAgency;
 import agency.RentalAgency;
 import rental.CarType;
 import rental.Quote;
@@ -13,7 +14,7 @@ public class ReservationSession extends Session implements IReservationSession{
 	private List<Quote> quotes;
 	private String customer;
 	
-	public ReservationSession(int ID, RentalAgency rentalAgency, String customer) {
+	public ReservationSession(int ID, IRentalAgency rentalAgency, String customer) {
 		super(ID, rentalAgency);
 		this.quotes = new ArrayList<Quote>();
 		this.customer = customer;

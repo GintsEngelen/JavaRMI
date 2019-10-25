@@ -13,6 +13,10 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
+import rental.CarRentalCompany;
+import rental.Car;
+
+import agency.RentalAgencyServer;
 
 public class RentalServer {
 	
@@ -24,10 +28,9 @@ public class RentalServer {
 		// The first argument passed to the `main` method (if present)
 		// indicates whether the application is run on the remote setup or not.
 		int localOrRemote = (args.length == 1 && args[0].equals("REMOTE")) ? REMOTE : LOCAL;
-
+		
 		CrcData data  = loadData("hertz.csv");
 		CarRentalCompany carRentalCompany = new CarRentalCompany(data.name, data.regions, data.cars);
-			
 		ICarRentalCompany stub = (ICarRentalCompany) UnicastRemoteObject.exportObject(carRentalCompany, 0);
 
         // Bind the remote object's stub in the registry
@@ -37,6 +40,9 @@ public class RentalServer {
 		} catch (AlreadyBoundException e) {
 			e.printStackTrace();
 		}
+        
+        RentalAgencyServer rentalAgencyServer = new RentalAgencyServer();
+        rentalAgencyServer.launch();
 	}
 
 	public static CrcData loadData(String datafile)

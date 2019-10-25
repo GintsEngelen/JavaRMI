@@ -7,6 +7,8 @@ import java.rmi.registry.Registry;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+
+import agency.IRentalAgency;
 import rental.CarType;
 import rental.ICarRentalCompany;
 import rental.Quote;
@@ -14,6 +16,8 @@ import rental.Reservation;
 import rental.ReservationConstraints;
 import sessions.IManagerSession;
 import sessions.IReservationSession;
+import sessions.ManagerSession;
+import sessions.ReservationSession;
 
 public class Client extends AbstractTestManagement<IReservationSession, IManagerSession> {
 
@@ -24,7 +28,7 @@ public class Client extends AbstractTestManagement<IReservationSession, IManager
 	private final static int LOCAL = 0;
 	private final static int REMOTE = 1;
 	
-	private ICarRentalCompany carRentalCompany;
+	private IRentalAgency rentalAgency;
 
 	/**
 	 * The `main` method is used to launch the client application and run the test
@@ -35,10 +39,10 @@ public class Client extends AbstractTestManagement<IReservationSession, IManager
 		// indicates whether the application is run on the remote setup or not.
 		int localOrRemote = (args.length == 1 && args[0].equals("REMOTE")) ? REMOTE : LOCAL;
 
-		String carRentalCompanyName = "Hertz";
+		String rentalAgency = "rentalAgency";
 
 		// An example reservation scenario on car rental company 'Hertz' would be...
-		Client client = new Client("simpleTrips", carRentalCompanyName, localOrRemote);
+		Client client = new Client("trips", rentalAgency, localOrRemote);
 		client.run();
 	}
 
@@ -46,12 +50,12 @@ public class Client extends AbstractTestManagement<IReservationSession, IManager
 	 * CONSTRUCTOR *
 	 ***************/
 
-	public Client(String scriptFile, String carRentalCompanyName, int localOrRemote) {
+	public Client(String scriptFile, String rentalAgency, int localOrRemote) {
 		super(scriptFile);
 		Registry registry;
 		try {
 			registry = LocateRegistry.getRegistry();
-			this.carRentalCompany = (ICarRentalCompany) registry.lookup(carRentalCompanyName);
+			this.rentalAgency = (IRentalAgency) registry.lookup(rentalAgency);
 			
 		} catch (RemoteException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -67,12 +71,14 @@ public class Client extends AbstractTestManagement<IReservationSession, IManager
 	 * @param end   end time of the period
 	 * @throws Exception if things go wrong, throw exception
 	 */
-	protected void checkForAvailableCarTypes(Date start, Date end) throws Exception {
-		for(CarType carType : this.carRentalCompany.getAvailableCarTypes(start, end)) {
+	
+	/*protected void checkForAvailableCarTypes(Date start, Date end) throws Exception {
+		for(CarType carType : this.rentalAgency.getAvailableCarTypes(start, end)) {
 			System.out.println(carType.toString());
 		}
 	}
-
+	 */
+	
 	/**
 	 * Retrieve a quote for a given car type (tentative reservation).
 	 * 
@@ -89,7 +95,7 @@ public class Client extends AbstractTestManagement<IReservationSession, IManager
 			throws Exception {
 		
 		ReservationConstraints constraints = new ReservationConstraints(start, end, carType, region);
-		return this.carRentalCompany.createQuote(constraints, clientName);
+		return this.rentalAgency.createQuote(constraints, clientName);
 	}
 
 	/**
@@ -101,7 +107,7 @@ public class Client extends AbstractTestManagement<IReservationSession, IManager
 	 * @throws Exception if things go wrong, throw exception
 	 */
 	protected Reservation confirmQuote(Quote quote) throws Exception {
-		return this.carRentalCompany.confirmQuote(quote);
+		return this.rentalAgency.confirmQuote(quote);
 	}
 
 	/**
@@ -113,7 +119,7 @@ public class Client extends AbstractTestManagement<IReservationSession, IManager
 	 * @throws Exception if things go wrong, throw exception
 	 */
 	protected List<Reservation> getReservationsByRenter(String clientName) throws Exception {
-		return this.carRentalCompany.getReservationsByRenter(clientName);
+		return this.rentalAgency.getReservationsByRenter(clientName);
 	}
 
 	/**
@@ -125,7 +131,7 @@ public class Client extends AbstractTestManagement<IReservationSession, IManager
 	 * @throws Exception if things go wrong, throw exception
 	 */
 	protected int getNumberOfReservationsForCarType(String carType) throws Exception {
-		return this.carRentalCompany.getNumberOfReservationsForCarType(carType);
+		return this.rentalAgency.getNumberOfReservationsForCarType(carType);
 	}
 
 	@Override
@@ -182,13 +188,11 @@ public class Client extends AbstractTestManagement<IReservationSession, IManager
 
 	@Override
 	protected IReservationSession getNewReservationSession(String name) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return this.rentalAgency.getNewReservationSession(name);
 	}
 
 	@Override
 	protected IManagerSession getNewManagerSession(String name, String carRentalName) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return this.rentalAgency.getNewManagerSession(name);
 	}
 }
