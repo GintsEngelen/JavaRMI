@@ -19,13 +19,15 @@ public class ManagerSession extends Session implements IManagerSession{
 	}
 
 	@Override
-	public void registerCarRentalCompany(ICarRentalCompany carRentalCompany) throws RemoteException {
+	public void registerCarRentalCompany(String crcName) throws RemoteException {
+		//Register inzetten en juiste company pullen en opslaan
 		super.getRentalAgency().addCarRentalCompany(carRentalCompany);
 		
 	}
 
 	@Override
-	public void unRegisterCarRentalCompany(ICarRentalCompany carRentalCompany) throws RemoteException {
+	public void unRegisterCarRentalCompany(String crcName carRentalCompany) throws RemoteException {
+		//Register inzetten en juiste company pullen en opslaan
 		super.getRentalAgency().removeCarRentalCompany(carRentalCompany);
 		
 	}

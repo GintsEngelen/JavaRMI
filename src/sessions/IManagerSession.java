@@ -10,9 +10,9 @@ import rental.ICarRentalCompany;
 
 public interface IManagerSession extends Remote{
 
-	public void registerCarRentalCompany(ICarRentalCompany carRentalCompany) throws RemoteException;
+	public void registerCarRentalCompany(String crcName) throws RemoteException;
 	
-	public void unRegisterCarRentalCompany(ICarRentalCompany carRentalCompany) throws RemoteException;
+	public void unRegisterCarRentalCompany(String crcName) throws RemoteException;
 	
 	public List<ICarRentalCompany> getAllCarRentalCompanies() throws RemoteException;
 	

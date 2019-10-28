@@ -18,6 +18,8 @@ public interface ICarRentalCompany extends Remote {
 
 	public int getNumberOfReservationsForCarType(String carType) throws RemoteException;
 	
+	public boolean operatesInRegion(String region) throws RemoteException;
+	
 	
 	
 }

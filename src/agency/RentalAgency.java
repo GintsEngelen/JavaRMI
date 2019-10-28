@@ -77,24 +77,26 @@ public class RentalAgency implements IRentalAgency{
 
 	@Override
 	public List<CarType> getAvailableCarTypes(Date start, Date end, String region) throws RemoteException {
-		//TODO: WAAR KOMT DIE REGION VANDAAAAAAANNNN
 		ArrayList<CarType> types = new ArrayList<>();
 		for(ICarRentalCompany crc : this.carRentalCompanies.values()) {
-			for(CarType t : crc.getAvailableCarTypes(start, end)) {
-				types.add(t);
+			if(crc.operatesInRegion(region)) {
+				for(CarType t : crc.getAvailableCarTypes(start, end)) {
+					types.add(t);
+				}
 			}
 		}
 		return types;
 	}
 
 	@Override
-	public void addCarRentalCompany(ICarRentalCompany carRentalCompany) {
-		// TODO Auto-generated method stub
-		
+	public void addCarRentalCompany(String carRentalCompany) {
+		//Register inzetten en juiste company pullen en opslaan
+		this.carRentalCompanies.put(, value)
 	}
 
 	@Override
-	public void removeCarRentalCompany(ICarRentalCompany carRentalCompany) {
+	public void removeCarRentalCompany(String carRentalCompany) {
+		//Register inzetten en juiste company pullen en removen
 		// TODO Auto-generated method stub
 		
 	}
