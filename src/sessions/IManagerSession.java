@@ -2,6 +2,7 @@ package sessions;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -14,7 +15,7 @@ public interface IManagerSession extends Remote{
 	
 	public void unRegisterCarRentalCompany(String crcName) throws RemoteException;
 	
-	public List<ICarRentalCompany> getAllCarRentalCompanies() throws RemoteException;
+	public Collection<ICarRentalCompany> getAllCarRentalCompanies() throws RemoteException;
 	
 	public int getNumberOfReservationsForCarTypeForCarRentalCompany(String carType, String company) throws RemoteException;
 	

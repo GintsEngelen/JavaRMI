@@ -1,6 +1,7 @@
 package sessions;
 
 import java.rmi.RemoteException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -31,7 +32,7 @@ public class ManagerSession extends Session implements IManagerSession{
 	}
 
 	@Override
-	public List<ICarRentalCompany> getAllCarRentalCompanies() throws RemoteException {
+	public Collection<ICarRentalCompany> getAllCarRentalCompanies() throws RemoteException {
 		return super.getRentalAgency().getAllCarRentalCompanies();
 	}
 

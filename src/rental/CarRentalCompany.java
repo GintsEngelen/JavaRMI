@@ -201,4 +201,21 @@ public class CarRentalCompany implements ICarRentalCompany{
 		return counter;
 	}
 	
+	private List<Reservation> getAllReservations(){
+		ArrayList<Reservation> reservations = new ArrayList<>();
+		for(Car car : this.cars) {
+			reservations.addAll(car.getReservations());
+		}
+		return reservations;
+	}
+
+	@Override
+	public Set<String> getAllRenters() throws RemoteException {
+		Set<String> renters = new HashSet<String>();
+		for(Reservation reservation : getAllReservations()) {
+			renters.add(reservation.getCarRenter());
+		}
+		return renters;
+	}
+	
 }

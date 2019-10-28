@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import agency.IRentalAgency;
 import agency.RentalAgency;
@@ -36,8 +37,8 @@ public class ReservationSession extends Session implements IReservationSession{
 	}
 
 	@Override
-	public List<CarType> getAvailableCarTypes(Date start, Date end, String region) throws RemoteException {
-		return super.getRentalAgency().getAvailableCarTypes(start, end, region);
+	public Set<CarType> getAvailableCarTypes(Date start, Date end) throws RemoteException {
+		return super.getRentalAgency().getAvailableCarTypes(start, end);
 	}
 
 	@Override

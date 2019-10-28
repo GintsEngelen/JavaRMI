@@ -64,22 +64,6 @@ public class Client extends AbstractTestManagement<IReservationSession, IManager
 	}
 
 	/**
-	 * Check which car types are available in the given period (across all companies
-	 * and regions) and print this list of car types.
-	 *
-	 * @param start start time of the period
-	 * @param end   end time of the period
-	 * @throws Exception if things go wrong, throw exception
-	 */
-	
-	/*protected void checkForAvailableCarTypes(Date start, Date end) throws Exception {
-		for(CarType carType : this.rentalAgency.getAvailableCarTypes(start, end)) {
-			System.out.println(carType.toString());
-		}
-	}
-	 */
-
-	/**
      * Get the (list of) best clients, i.e. clients that have highest number of
      * reservations (across all rental agencies).
      *
@@ -137,8 +121,9 @@ public class Client extends AbstractTestManagement<IReservationSession, IManager
      */
 	@Override
 	protected void checkForAvailableCarTypes(IReservationSession session, Date start, Date end) throws Exception {
-		//session.checkForAvailableCarTypes(start, end);
-		System.out.println("Not Done Yet");
+		for(CarType carType : session.getAvailableCarTypes(start, end)) {
+			System.out.println(carType.toString());
+		}
 	}
 	
 	/**

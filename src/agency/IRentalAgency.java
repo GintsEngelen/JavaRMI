@@ -2,6 +2,7 @@ package agency;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -24,13 +25,13 @@ public interface IRentalAgency extends Remote {
 	
 	public IManagerSession getNewManagerSession(String name) throws RemoteException;
 
-	public List<CarType> getAvailableCarTypes(Date start, Date end, String region) throws RemoteException;
+	public Set<CarType> getAvailableCarTypes(Date start, Date end) throws RemoteException;
 
 	public void addCarRentalCompany(String carRentalCompany) throws RemoteException;
 
 	public void removeCarRentalCompany(String carRentalCompany) throws RemoteException;
 
-	public List<ICarRentalCompany> getAllCarRentalCompanies() throws RemoteException;
+	public Collection<ICarRentalCompany> getAllCarRentalCompanies() throws RemoteException;
 
 	public int getNumberOfReservationsForCarTypeForCarRentalCompany(String carType, String company) throws RemoteException;
 

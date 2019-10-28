@@ -7,8 +7,11 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -76,7 +79,6 @@ public class RentalAgency implements IRentalAgency{
 		}
 	}
 
-	@Override
 	public List<CarType> getAvailableCarTypes(Date start, Date end, String region) throws RemoteException {
 		ArrayList<CarType> types = new ArrayList<>();
 		for(ICarRentalCompany crc : this.carRentalCompanies.values()) {
@@ -113,9 +115,8 @@ public class RentalAgency implements IRentalAgency{
 	}
 
 	@Override
-	public List<ICarRentalCompany> getAllCarRentalCompanies() {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<ICarRentalCompany> getAllCarRentalCompanies() {
+		return this.carRentalCompanies.values();
 	}
 
 	@Override
@@ -138,14 +139,48 @@ public class RentalAgency implements IRentalAgency{
 
 	@Override
 	public Set<String> getBestCustomers() {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			Set<String> renters = new HashSet<>();
+			for(ICarRentalCompany carRentalCompany : getAllCarRentalCompanies()) {
+				renters.addAll(carRentalCompany.getAllRenters());
+			}
+			
+			HashMap<String, Integer> reservationsPerRenter = new HashMap<>();
+			
+			for(String renter : renters) {
+				reservationsPerRenter.put(renter, getNumberOfReservationsByRenter(renter));
+			}
+			
+			int highestAmountOfReservations = Collections.max(reservationsPerRenter.values());
+			
+			Set<String> bestCustomers = new HashSet<>();
+			
+			for(String renter : reservationsPerRenter.keySet()) {
+				if(reservationsPerRenter.get(renter) == highestAmountOfReservations) bestCustomers.add(renter);
+			}
+			
+			return bestCustomers;
+			
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public double getRentalPriceForCarTypeForCompany(String rentalCompany, String carType) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public Set<CarType> getAvailableCarTypes(Date start, Date end) throws RemoteException {
+		Set<CarType> availableCarTypes = new HashSet<CarType>();
+		for(ICarRentalCompany carRentalCompany : getAllCarRentalCompanies()) {
+			availableCarTypes.addAll(carRentalCompany.getAvailableCarTypes(start, end));
+		}
+		return availableCarTypes;
 	}
 
 
