@@ -189,6 +189,11 @@ public class CarRentalCompany implements ICarRentalCompany{
 		}
 		return reservations;
 	}
+	
+	@Override
+	public int getNumberOfReservationsByRenter(String clientName) throws RemoteException {
+		return getReservationsByRenter(clientName).size();
+	}
 
 	@Override
 	public int getNumberOfReservationsForCarType(String carType) {
@@ -217,5 +222,7 @@ public class CarRentalCompany implements ICarRentalCompany{
 		}
 		return renters;
 	}
+
+
 	
 }

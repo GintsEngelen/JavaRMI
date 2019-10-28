@@ -126,9 +126,12 @@ public class RentalAgency implements IRentalAgency{
 	}
 
 	@Override
-	public int getNumberOfReservationsByRenter(String clientName) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getNumberOfReservationsByRenter(String clientName) throws RemoteException{
+		int result = 0;
+		for(ICarRentalCompany carRentalCompany : getAllCarRentalCompanies()) {
+			result += carRentalCompany.getNumberOfReservationsByRenter(clientName);
+		}
+		return result;
 	}
 
 	@Override
@@ -151,7 +154,10 @@ public class RentalAgency implements IRentalAgency{
 				reservationsPerRenter.put(renter, getNumberOfReservationsByRenter(renter));
 			}
 			
-			int highestAmountOfReservations = Collections.max(reservationsPerRenter.values());
+			int highestAmountOfReservations = 0;
+			if(!reservationsPerRenter.values().isEmpty()) {
+				highestAmountOfReservations = Collections.max(reservationsPerRenter.values());
+			}
 			
 			Set<String> bestCustomers = new HashSet<>();
 			
