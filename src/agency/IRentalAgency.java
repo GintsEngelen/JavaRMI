@@ -26,19 +26,19 @@ public interface IRentalAgency extends Remote {
 
 	public List<CarType> getAvailableCarTypes(Date start, Date end, String region) throws RemoteException;
 
-	public void addCarRentalCompany(ICarRentalCompany carRentalCompany);
+	public void addCarRentalCompany(String carRentalCompany) throws RemoteException;
 
-	public void removeCarRentalCompany(ICarRentalCompany carRentalCompany);
+	public void removeCarRentalCompany(String carRentalCompany) throws RemoteException;
 
-	public List<ICarRentalCompany> getAllCarRentalCompanies();
+	public List<ICarRentalCompany> getAllCarRentalCompanies() throws RemoteException;
 
-	public int getNumberOfReservationsForCarTypeForCarRentalCompany(String carType, String company);
+	public int getNumberOfReservationsForCarTypeForCarRentalCompany(String carType, String company) throws RemoteException;
 
-	public int getNumberOfReservationsByRenter(String clientName);
+	public int getNumberOfReservationsByRenter(String clientName) throws RemoteException;
 
-	public CarType getMostPopularCarType(String companyName, int year);
+	public CarType getMostPopularCarType(String companyName, int year) throws RemoteException;
 
-	public Set<String> getBestCustomers();
+	public Set<String> getBestCustomers() throws RemoteException;
 
-	public double getRentalPriceForCarTypeForCompany(String rentalCompany, String carType);
+	public double getRentalPriceForCarTypeForCompany(String rentalCompany, String carType) throws RemoteException;
 }

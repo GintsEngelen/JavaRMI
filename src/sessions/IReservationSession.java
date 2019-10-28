@@ -19,6 +19,6 @@ public interface IReservationSession extends Remote {
 	
 	public String getCheapestCarType(Date start, Date end, String region) throws RemoteException;
 
-	public void addQuote(String name, Date start, Date end, String carType, String region);
+	public void addQuote(String name, Date start, Date end, String carType, String region) throws RemoteException;
 	
 }

@@ -48,9 +48,14 @@ public class ReservationSession extends Session implements IReservationSession{
 
 	@Override
 	public void addQuote(String name, Date start, Date end, String carType, String region) {
-		String rentalCompany = "Nakijken wat de regels hiervoorzijn";
-		double rentalPrice = super.getRentalAgency().getRentalPriceForCarTypeForCompany(rentalCompany, carType);
-		Quote newQuote = new Quote(name, start, end, rentalCompany, carType, rentalPrice);
+		try {
+			String rentalCompany = "Nakijken wat de regels hiervoorzijn";
+			double rentalPrice = super.getRentalAgency().getRentalPriceForCarTypeForCompany(rentalCompany, carType);
+			Quote newQuote = new Quote(name, start, end, rentalCompany, carType, rentalPrice);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	

@@ -14,11 +14,11 @@ public class RentalAgencyServer {
 	private final static int LOCAL = 0;
 	private final static int REMOTE = 1;
 
-	public static void launch() throws ReservationException,
+	public static void launch(String[] args) throws ReservationException,
 			NumberFormatException, IOException {
 		// The first argument passed to the `main` method (if present)
 		// indicates whether the application is run on the remote setup or not.
-		int localOrRemote = LOCAL;
+		int localOrRemote = (args.length == 1 && args[0].equals("REMOTE")) ? REMOTE : LOCAL;
 
 		RentalAgency rentalAgency = new RentalAgency();
 			

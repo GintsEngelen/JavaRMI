@@ -1,5 +1,6 @@
 package agency;
 
+import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -89,16 +90,26 @@ public class RentalAgency implements IRentalAgency{
 	}
 
 	@Override
-	public void addCarRentalCompany(String carRentalCompany) {
-		//Register inzetten en juiste company pullen en opslaan
-		this.carRentalCompanies.put(, value)
+	public void addCarRentalCompany(String crcName) {
+		try {
+			ICarRentalCompany carRentalCompany = (ICarRentalCompany) registry.lookup(crcName);
+			this.carRentalCompanies.put(crcName, carRentalCompany);
+		} catch (AccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
-	public void removeCarRentalCompany(String carRentalCompany) {
-		//Register inzetten en juiste company pullen en removen
-		// TODO Auto-generated method stub
-		
+	public void removeCarRentalCompany(String crcName) {
+		this.carRentalCompanies.remove(crcName);		
 	}
 
 	@Override

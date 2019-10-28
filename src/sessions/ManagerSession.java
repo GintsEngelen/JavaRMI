@@ -20,15 +20,13 @@ public class ManagerSession extends Session implements IManagerSession{
 
 	@Override
 	public void registerCarRentalCompany(String crcName) throws RemoteException {
-		//Register inzetten en juiste company pullen en opslaan
-		super.getRentalAgency().addCarRentalCompany(carRentalCompany);
+		super.getRentalAgency().addCarRentalCompany(crcName);
 		
 	}
 
 	@Override
-	public void unRegisterCarRentalCompany(String crcName carRentalCompany) throws RemoteException {
-		//Register inzetten en juiste company pullen en opslaan
-		super.getRentalAgency().removeCarRentalCompany(carRentalCompany);
+	public void unRegisterCarRentalCompany(String crcName) throws RemoteException {
+		super.getRentalAgency().removeCarRentalCompany(crcName);
 		
 	}
 
@@ -55,7 +53,13 @@ public class ManagerSession extends Session implements IManagerSession{
 
 	@Override
 	public int getNumberOfReservationsByRenter(String clientName) {
-		return super.getRentalAgency().getNumberOfReservationsByRenter(clientName);
+		try {
+			return super.getRentalAgency().getNumberOfReservationsByRenter(clientName);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
 	}
 
 	

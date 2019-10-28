@@ -18,12 +18,12 @@ import rental.Car;
 
 import agency.RentalAgencyServer;
 
-public class RentalServer {
+public class HertzServer {
 	
 	private final static int LOCAL = 0;
 	private final static int REMOTE = 1;
 
-	public static void main(String[] args) throws ReservationException,
+	public static void launch(String[] args) throws ReservationException,
 			NumberFormatException, IOException {
 		// The first argument passed to the `main` method (if present)
 		// indicates whether the application is run on the remote setup or not.
@@ -41,8 +41,6 @@ public class RentalServer {
 			e.printStackTrace();
 		}
         
-        RentalAgencyServer rentalAgencyServer = new RentalAgencyServer();
-        rentalAgencyServer.launch();
 	}
 
 	public static CrcData loadData(String datafile)
