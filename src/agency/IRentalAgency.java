@@ -42,4 +42,6 @@ public interface IRentalAgency extends Remote {
 	public Set<String> getBestCustomers() throws RemoteException;
 
 	public double getRentalPriceForCarTypeForCompany(String rentalCompany, String carType) throws RemoteException;
+
+	public String getCheapestCarType(Date start, Date end, String region) throws RemoteException;
 }

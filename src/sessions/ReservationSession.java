@@ -43,8 +43,7 @@ public class ReservationSession extends Session implements IReservationSession{
 
 	@Override
 	public String getCheapestCarType(Date start, Date end, String region) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		return super.getRentalAgency().getCheapestCarType(start, end, region);
 	}
 
 	@Override

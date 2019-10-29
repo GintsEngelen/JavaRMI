@@ -23,5 +23,7 @@ public interface ICarRentalCompany extends Remote {
 	public boolean operatesInRegion(String region) throws RemoteException;
 	
 	public Set<String> getAllRenters() throws RemoteException;
+
+	CarType getCheapestCarType(Date start, Date end) throws RemoteException;
 	
 }

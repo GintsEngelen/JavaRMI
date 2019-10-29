@@ -22,7 +22,6 @@ public class ManagerSession extends Session implements IManagerSession{
 	@Override
 	public void registerCarRentalCompany(String crcName) throws RemoteException {
 		super.getRentalAgency().addCarRentalCompany(crcName);
-		
 	}
 
 	@Override

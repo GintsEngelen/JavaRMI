@@ -40,7 +40,12 @@ public class RentalAgency implements IRentalAgency{
 	public RentalAgency() {
 		try {
 			registry = LocateRegistry.getRegistry();
+			this.carRentalCompanies.put("hertz", (ICarRentalCompany) registry.lookup("Hertz"));
+			this.carRentalCompanies.put("dockx", (ICarRentalCompany) registry.lookup("Dockx"));
 		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -189,8 +194,24 @@ public class RentalAgency implements IRentalAgency{
 		return availableCarTypes;
 	}
 
+	@Override
+	public String getCheapestCarType(Date start, Date end, String region) throws RemoteException {
+		Set<CarType> cheapestCarTypes = new HashSet<CarType>();
+		for(ICarRentalCompany carRentalCompany : this.getAllCarRentalCompanies()) {
 
+			if(carRentalCompany.operatesInRegion(region)) {
+				cheapestCarTypes.add(carRentalCompany.getCheapestCarType(start, end));
+			} 
+		}
 
-	
+		double cheapestPrice = Double.MAX_VALUE;
+		CarType cheapestCarType = null;
+		for(CarType carType : cheapestCarTypes) {
+			if(carType.getRentalPricePerDay() < cheapestPrice) cheapestCarType = carType;
+		}
+		
+		return cheapestCarType.getName();
+	}
+
 
 }

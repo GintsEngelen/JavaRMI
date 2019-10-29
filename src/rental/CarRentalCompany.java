@@ -62,7 +62,7 @@ public class CarRentalCompany implements ICarRentalCompany{
     public boolean operatesInRegion(String region) {
         return this.regions.contains(region);
     }
-	
+    
 	/*************
 	 * CAR TYPES *
 	 *************/
@@ -95,6 +95,17 @@ public class CarRentalCompany implements ICarRentalCompany{
 			}
 		}
 		return availableCarTypes;
+	}
+	
+	@Override
+	public CarType getCheapestCarType(Date start, Date end) {
+		Set<CarType> availableCarTypes = getAvailableCarTypes(start, end);
+		double cheapestPrice = Double.MAX_VALUE;
+		CarType cheapestCarType = null;
+		for(CarType carType : availableCarTypes) {
+			if(carType.getRentalPricePerDay() < cheapestPrice) cheapestCarType = carType;
+		}
+		return cheapestCarType;
 	}
 	
 	/*********
@@ -214,6 +225,10 @@ public class CarRentalCompany implements ICarRentalCompany{
 		return reservations;
 	}
 
+	/***********
+	 * RENTERS *
+	 ***********/
+	
 	@Override
 	public Set<String> getAllRenters() throws RemoteException {
 		Set<String> renters = new HashSet<String>();
