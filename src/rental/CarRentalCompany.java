@@ -223,6 +223,40 @@ public class CarRentalCompany implements ICarRentalCompany{
 		return renters;
 	}
 
+	@Override
+	public CarType getMostPopularCarType(int year) throws RemoteException {
+		CarType mostPopular = null;
+		int amount = 0;
+		HashMap<CarType, Integer> map = amountOfReservationsForAllCarTypesBasedOnYear(year);
+		for(CarType c : map.keySet()) {
+			if(map.get(c)>amount) {
+				mostPopular = c;
+				amount = map.get(c);
+			}
+		}
+		
+		
+		return mostPopular;
+	}
+	
+	private HashMap<CarType, Integer> amountOfReservationsForAllCarTypesBasedOnYear(int year){
+		int dateFormatYear = year - 1900; //see Doc on date.getYear();
+		HashMap<CarType, Integer> map = new HashMap<>(); //cartypename + amount of reservation
+		for(Car c: this.cars) {
+			for(Reservation r : c.getReservations()) {
+				if(r.getStartDate().getYear() == dateFormatYear) {
+					if(map.containsKey(c.getType())) {
+						int newAmount = map.get(c.getType()) + 1;
+						map.put(c.getType(), newAmount);
+					}
+					else map.put(c.getType(), 1);
+					
+				}
+			}
+		}
+		return map;
+	}
+
 
 	
 }
