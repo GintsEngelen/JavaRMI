@@ -40,6 +40,7 @@ public class CarRentalCompany implements ICarRentalCompany{
 	 * NAME *
 	 ********/
 
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -100,10 +101,14 @@ public class CarRentalCompany implements ICarRentalCompany{
 	@Override
 	public CarType getCheapestCarType(Date start, Date end) {
 		Set<CarType> availableCarTypes = getAvailableCarTypes(start, end);
+		
 		double cheapestPrice = Double.MAX_VALUE;
 		CarType cheapestCarType = null;
 		for(CarType carType : availableCarTypes) {
-			if(carType.getRentalPricePerDay() < cheapestPrice) cheapestCarType = carType;
+			if(carType.getRentalPricePerDay() < cheapestPrice) {
+				cheapestPrice = carType.getRentalPricePerDay();
+				cheapestCarType = carType;
+			}
 		}
 		return cheapestCarType;
 	}

@@ -197,7 +197,6 @@ public class RentalAgency implements IRentalAgency{
 	public String getCheapestCarType(Date start, Date end, String region) throws RemoteException {
 		Set<CarType> cheapestCarTypes = new HashSet<CarType>();
 		for(ICarRentalCompany carRentalCompany : this.getAllCarRentalCompanies()) {
-
 			if(carRentalCompany.operatesInRegion(region)) {
 				cheapestCarTypes.add(carRentalCompany.getCheapestCarType(start, end));
 			} 
@@ -206,7 +205,10 @@ public class RentalAgency implements IRentalAgency{
 		double cheapestPrice = Double.MAX_VALUE;
 		CarType cheapestCarType = null;
 		for(CarType carType : cheapestCarTypes) {
-			if(carType.getRentalPricePerDay() < cheapestPrice) cheapestCarType = carType;
+			if(carType.getRentalPricePerDay() < cheapestPrice) {
+				cheapestPrice = carType.getRentalPricePerDay();
+				cheapestCarType = carType;
+			}
 		}
 		
 		return cheapestCarType.getName();
