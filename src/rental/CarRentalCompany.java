@@ -277,6 +277,16 @@ public class CarRentalCompany implements ICarRentalCompany{
 		return map;
 	}
 
+	@Override
+	public double getPriceForCarType(String carType) throws RemoteException {
+		for(Car c : cars) {
+			if(c.getType().getName().equals(carType)) {
+				return c.getType().getRentalPricePerDay();
+			}
+		}
+		return 0;
+	}
+
 
 	
 }

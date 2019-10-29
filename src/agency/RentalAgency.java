@@ -125,9 +125,8 @@ public class RentalAgency implements IRentalAgency{
 	}
 
 	@Override
-	public int getNumberOfReservationsForCarTypeForCarRentalCompany(String carType, String company) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getNumberOfReservationsForCarTypeForCarRentalCompany(String carType, String company) throws RemoteException {
+		return carRentalCompanies.get(company).getNumberOfReservationsForCarType(carType);
 	}
 
 	@Override
@@ -179,9 +178,8 @@ public class RentalAgency implements IRentalAgency{
 	}
 
 	@Override
-	public double getRentalPriceForCarTypeForCompany(String rentalCompany, String carType) {
-		// TODO Auto-generated method stub
-		return 0;
+	public double getRentalPriceForCarTypeForCompany(String rentalCompany, String carType) throws RemoteException {
+		return carRentalCompanies.get(rentalCompany).getPriceForCarType(carType);
 	}
 
 	@Override
