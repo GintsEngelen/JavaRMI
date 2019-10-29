@@ -52,16 +52,19 @@ public class RentalAgency implements IRentalAgency{
 	
 	@Override
 	public IReservationSession getReservationSession(String name) throws RemoteException {
+		System.out.println("RentalAgency: getReservationSession with name <" + name + ">");
 		return (IReservationSession) UnicastRemoteObject.exportObject(reservationSessions.get(name), 0);
 	}
 
 	@Override
 	public IManagerSession getManagerSession(String name) throws RemoteException {
+		System.out.println("RentalAgency: getManagerSession with name <" + name + ">");
 		return (IManagerSession) UnicastRemoteObject.exportObject(managerSessions.get(name), 0);
 	}
 
 	@Override
 	public IReservationSession getNewReservationSession(String name) throws RemoteException {
+		System.out.println("RentalAgency: getNewReservationSession with name <" + name + ">");
 		try {
 			ReservationSession reservationSession = 
 					new ReservationSession(0, (IRentalAgency) registry.lookup("rentalAgency"), name);
@@ -74,6 +77,7 @@ public class RentalAgency implements IRentalAgency{
 
 	@Override
 	public IManagerSession getNewManagerSession(String name) throws RemoteException {
+		System.out.println("RentalAgency: getNewManagerSession with name <" + name + ">");
 		try {
 			ManagerSession reservationSession = 
 					new ManagerSession(0, (IRentalAgency) registry.lookup("rentalAgency"), name);
@@ -85,6 +89,7 @@ public class RentalAgency implements IRentalAgency{
 	}
 
 	public List<CarType> getAvailableCarTypes(Date start, Date end, String region) throws RemoteException {
+		System.out.println("RentalAgency: getAvailableCartTypes from region <" +  region + " between " + start.toString() + " and " + end.toString());
 		ArrayList<CarType> types = new ArrayList<>();
 		for(ICarRentalCompany crc : this.carRentalCompanies.values()) {
 			if(crc.operatesInRegion(region)) {
@@ -98,6 +103,7 @@ public class RentalAgency implements IRentalAgency{
 
 	@Override
 	public void addCarRentalCompany(String crcName) {
+		System.out.println("RentalAgency: addCrC with name <" + crcName + ">");
 		try {
 			ICarRentalCompany carRentalCompany = (ICarRentalCompany) registry.lookup(crcName);
 			this.carRentalCompanies.put(crcName, carRentalCompany);
@@ -116,21 +122,25 @@ public class RentalAgency implements IRentalAgency{
 
 	@Override
 	public void removeCarRentalCompany(String crcName) {
+		System.out.println("RentalAgency: removeCarRentalCompany with name <" + crcname + ">");
 		this.carRentalCompanies.remove(crcName);		
 	}
 
 	@Override
 	public Collection<ICarRentalCompany> getAllCarRentalCompanies() {
+		System.out.println("RentalAgency: getAllCarRentalCompanies");
 		return this.carRentalCompanies.values();
 	}
 
 	@Override
 	public int getNumberOfReservationsForCarTypeForCarRentalCompany(String carType, String company) throws RemoteException {
+		System.out.println("RentalAgency: getNumberOfReservationsForCarTypeForCarRentalCompany with name " + company + " and type " + carType);
 		return carRentalCompanies.get(company).getNumberOfReservationsForCarType(carType);
 	}
 
 	@Override
 	public int getNumberOfReservationsByRenter(String clientName) throws RemoteException{
+		System.out.println("RentalAgency: getNumberofReservationByRenter with name <" + clientName + ">");
 		int result = 0;
 		for(ICarRentalCompany carRentalCompany : getAllCarRentalCompanies()) {
 			result += carRentalCompany.getNumberOfReservationsByRenter(clientName);
@@ -140,11 +150,13 @@ public class RentalAgency implements IRentalAgency{
 
 	@Override
 	public CarType getMostPopularCarType(String companyName, int year) throws RemoteException {
+		System.out.println("RentalAgency: getMostPopulaCarType from company with name <" + companyName + "> with year " + year);
 		return carRentalCompanies.get(companyName).getMostPopularCarType(year);
 	}
 
 	@Override
 	public Set<String> getBestCustomers() {
+		System.out.println("RentalAgency: getBestCustomer");
 		try {
 			Set<String> renters = new HashSet<>();
 			for(ICarRentalCompany carRentalCompany : getAllCarRentalCompanies()) {
@@ -179,11 +191,13 @@ public class RentalAgency implements IRentalAgency{
 
 	@Override
 	public double getRentalPriceForCarTypeForCompany(String rentalCompany, String carType) throws RemoteException {
+		System.out.println("RentalAgency: getRentalPriceForCarTypeForCompany with name " + rentalCompany + " with type " + carType);
 		return carRentalCompanies.get(rentalCompany).getPriceForCarType(carType);
 	}
 
 	@Override
 	public Set<CarType> getAvailableCarTypes(Date start, Date end) throws RemoteException {
+		System.out.println("RentalAgency: getAvailableCarTypes between "+start.toString()+" and " + end.toString());
 		Set<CarType> availableCarTypes = new HashSet<CarType>();
 		for(ICarRentalCompany carRentalCompany : getAllCarRentalCompanies()) {
 			availableCarTypes.addAll(carRentalCompany.getAvailableCarTypes(start, end));
@@ -193,6 +207,7 @@ public class RentalAgency implements IRentalAgency{
 
 	@Override
 	public String getCheapestCarType(Date start, Date end, String region) throws RemoteException {
+		System.out.println("RentalAgency: getCheapestCarType from region "+region+" between "+start.toString()+ " and "+end.toString());
 		Set<CarType> cheapestCarTypes = new HashSet<CarType>();
 		for(ICarRentalCompany carRentalCompany : this.getAllCarRentalCompanies()) {
 
