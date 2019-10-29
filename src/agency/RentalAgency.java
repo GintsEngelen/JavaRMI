@@ -21,6 +21,7 @@ import rental.ICarRentalCompany;
 import rental.Quote;
 import rental.Reservation;
 import rental.ReservationConstraints;
+import rental.ReservationException;
 import sessions.IManagerSession;
 import sessions.IReservationSession;
 import sessions.ManagerSession;
@@ -37,13 +38,11 @@ public class RentalAgency implements IRentalAgency{
 	
 	Registry registry;
 	
-	public RentalAgency() {
+	public RentalAgency() throws RemoteException {
 		try {
 			registry = LocateRegistry.getRegistry();
 			this.carRentalCompanies.put("hertz", (ICarRentalCompany) registry.lookup("Hertz"));
 			this.carRentalCompanies.put("dockx", (ICarRentalCompany) registry.lookup("Dockx"));
-		} catch (RemoteException e) {
-			e.printStackTrace();
 		} catch (NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -97,14 +96,11 @@ public class RentalAgency implements IRentalAgency{
 	}
 
 	@Override
-	public void addCarRentalCompany(String crcName) {
+	public void addCarRentalCompany(String crcName) throws RemoteException {
 		try {
 			ICarRentalCompany carRentalCompany = (ICarRentalCompany) registry.lookup(crcName);
 			this.carRentalCompanies.put(crcName, carRentalCompany);
 		} catch (AccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NotBoundException e) {
@@ -144,8 +140,8 @@ public class RentalAgency implements IRentalAgency{
 	}
 
 	@Override
-	public Set<String> getBestCustomers() {
-		try {
+	public Set<String> getBestCustomers() throws RemoteException {
+
 			Set<String> renters = new HashSet<>();
 			for(ICarRentalCompany carRentalCompany : getAllCarRentalCompanies()) {
 				renters.addAll(carRentalCompany.getAllRenters());
@@ -170,11 +166,7 @@ public class RentalAgency implements IRentalAgency{
 			
 			return bestCustomers;
 			
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+		
 	}
 
 	@Override
@@ -214,5 +206,18 @@ public class RentalAgency implements IRentalAgency{
 		return cheapestCarType.getName();
 	}
 
+	@Override 
+	public Quote createQuote(ReservationConstraints constraints, String client) throws RemoteException, ReservationException {
+		Quote quote = null;
+		for(ICarRentalCompany carRentalCompany : getAllCarRentalCompanies()) {
+			try {
+				return carRentalCompany.createQuote(constraints, client);
+			} catch (ReservationException e) {
 
+			} 
+		}
+		
+		if(quote == null) throw new ReservationException("No companies have cars available for these constraints");
+		return quote;
+	}
 }

@@ -12,6 +12,7 @@ import rental.ICarRentalCompany;
 import rental.Quote;
 import rental.Reservation;
 import rental.ReservationConstraints;
+import rental.ReservationException;
 import sessions.IManagerSession;
 import sessions.IReservationSession;
 
@@ -44,4 +45,6 @@ public interface IRentalAgency extends Remote {
 	public double getRentalPriceForCarTypeForCompany(String rentalCompany, String carType) throws RemoteException;
 
 	public String getCheapestCarType(Date start, Date end, String region) throws RemoteException;
+
+	public Quote createQuote(ReservationConstraints constraints, String client) throws RemoteException, ReservationException;
 }

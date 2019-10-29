@@ -11,6 +11,8 @@ import agency.RentalAgency;
 import rental.CarType;
 import rental.Quote;
 import rental.Reservation;
+import rental.ReservationConstraints;
+import rental.ReservationException;
 
 public class ReservationSession extends Session implements IReservationSession{
 
@@ -47,14 +49,12 @@ public class ReservationSession extends Session implements IReservationSession{
 	}
 
 	@Override
-	public void addQuote(String name, Date start, Date end, String carType, String region) {
+	public void addQuote(String name, Date start, Date end, String carType, String region) throws RemoteException {
+		ReservationConstraints constraints = new ReservationConstraints(start, end, carType, region);
 		try {
-			String rentalCompany = "Nakijken wat de regels hiervoorzijn";
-			double rentalPrice = super.getRentalAgency().getRentalPriceForCarTypeForCompany(rentalCompany, carType);
-			Quote newQuote = new Quote(name, start, end, rentalCompany, carType, rentalPrice);
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			this.quotes.add(this.getRentalAgency().createQuote(constraints, name));
+		} catch (ReservationException e) {
+			//No quote will be added, since there is no possible quote with given constraints
 		}
 	}
 
