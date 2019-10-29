@@ -140,9 +140,8 @@ public class RentalAgency implements IRentalAgency{
 	}
 
 	@Override
-	public CarType getMostPopularCarType(String companyName, int year) {
-		// TODO Auto-generated method stub
-		return null;
+	public CarType getMostPopularCarType(String companyName, int year) throws RemoteException {
+		return carRentalCompanies.get(companyName).getMostPopularCarType(year);
 	}
 
 	@Override
