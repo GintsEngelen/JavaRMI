@@ -27,5 +27,7 @@ public interface ICarRentalCompany extends Remote {
 	CarType getCheapestCarType(Date start, Date end) throws RemoteException;
 	
 	public CarType getMostPopularCarType(int year) throws RemoteException;
+
+	public double getPriceForCarType(String carType) throws RemoteException;
 	
 }
