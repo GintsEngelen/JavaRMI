@@ -179,6 +179,8 @@ public class RentalAgency implements IRentalAgency{
 
 	@Override
 	public double getRentalPriceForCarTypeForCompany(String rentalCompany, String carType) throws RemoteException {
+		System.out.println("car rental company name is " + rentalCompany + " and looking for " + carType.toString());
+		
 		return carRentalCompanies.get(rentalCompany).getPriceForCarType(carType);
 	}
 
