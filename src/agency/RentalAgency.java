@@ -122,7 +122,7 @@ public class RentalAgency implements IRentalAgency{
 
 	@Override
 	public void removeCarRentalCompany(String crcName) {
-		System.out.println("RentalAgency: removeCarRentalCompany with name <" + crcname + ">");
+		System.out.println("RentalAgency: removeCarRentalCompany with name <" + crcName + ">");
 		this.carRentalCompanies.remove(crcName);		
 	}
 
