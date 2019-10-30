@@ -9,6 +9,7 @@ import java.util.Set;
 import rental.CarType;
 import rental.Quote;
 import rental.Reservation;
+import rental.ReservationException;
 
 public interface IReservationSession extends Remote {
 	
@@ -20,6 +21,6 @@ public interface IReservationSession extends Remote {
 	
 	public String getCheapestCarType(Date start, Date end, String region) throws RemoteException;
 
-	public void addQuote(String name, Date start, Date end, String carType, String region) throws RemoteException;
+	public void addQuote(String name, Date start, Date end, String carType, String region) throws RemoteException, ReservationException;
 	
 }
