@@ -144,6 +144,7 @@ public class CarRentalCompany implements ICarRentalCompany{
 		logger.log(Level.INFO, "<{0}> Creating tentative reservation for {1} with constraints {2}", 
                         new Object[]{name, client, constraints.toString()});
 		
+		System.out.println("Crc: createQuote");
 				
 		if(!operatesInRegion(constraints.getRegion()) || !isAvailable(constraints.getCarType(), constraints.getStartDate(), constraints.getEndDate()))
 			throw new ReservationException("<" + name

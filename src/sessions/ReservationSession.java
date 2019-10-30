@@ -50,11 +50,14 @@ public class ReservationSession extends Session implements IReservationSession{
 
 	@Override
 	public void addQuote(String name, Date start, Date end, String carType, String region) throws RemoteException {
+		System.out.println("Reservation: addQuote");
 		ReservationConstraints constraints = new ReservationConstraints(start, end, carType, region);
 		try {
 			this.quotes.add(this.getRentalAgency().createQuote(constraints, name));
+			System.out.println("Reservation: Quote added succesfully");
 		} catch (ReservationException e) {
 			//No quote will be added, since there is no possible quote with given constraints
+			System.out.println("Reservation: Quote was not added");
 		}
 	}
 

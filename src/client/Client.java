@@ -73,6 +73,7 @@ public class Client extends AbstractTestManagement<IReservationSession, IManager
      */
 	@Override
 	protected Set<String> getBestClients(IManagerSession ms) throws Exception {
+		System.out.println("Client: Get best clients");
 		return ms.getBestCustomers();
 	}
 
@@ -91,6 +92,7 @@ public class Client extends AbstractTestManagement<IReservationSession, IManager
 	@Override
 	protected String getCheapestCarType(IReservationSession session, Date start, Date end, String region)
 			throws Exception {
+		System.out.println("Client: Get cheapest car type");
 		return session.getCheapestCarType(start, end, region);
 	}
 
@@ -107,6 +109,7 @@ public class Client extends AbstractTestManagement<IReservationSession, IManager
 	@Override
 	protected CarType getMostPopularCarTypeIn(IManagerSession ms, String carRentalCompanyName, int year)
 			throws Exception {
+		System.out.println("Client: getMostPopularCarTypeIn");
 		return ms.getMostPopularCarType(carRentalCompanyName, year);
 	}
 
@@ -122,6 +125,7 @@ public class Client extends AbstractTestManagement<IReservationSession, IManager
 	@Override
 	protected void checkForAvailableCarTypes(IReservationSession session, Date start, Date end) throws Exception {
 		for(CarType carType : session.getAvailableCarTypes(start, end)) {
+			System.out.println("Client: check for available car types");
 			System.out.println(carType.toString());
 		}
 	}
@@ -142,6 +146,7 @@ public class Client extends AbstractTestManagement<IReservationSession, IManager
 	@Override
 	protected void addQuoteToSession(IReservationSession session, String name, Date start, Date end, String carType,
 			String region) throws Exception {
+		System.out.println("Client: addQuoteToSession");
 		session.addQuote(name, start, end, carType, region);
 		
 	}
@@ -156,6 +161,7 @@ public class Client extends AbstractTestManagement<IReservationSession, IManager
      */
 	@Override
 	protected List<Reservation> confirmQuotes(IReservationSession session, String name) throws Exception {
+		System.out.println("Client: confirm Quotes");
 		return session.confirmQuotes(name);
 	}
 
@@ -172,6 +178,7 @@ public class Client extends AbstractTestManagement<IReservationSession, IManager
      */
 	@Override
 	protected int getNumberOfReservationsByRenter(IManagerSession ms, String clientName) throws Exception {
+		System.out.println("Client: getNmbrOfReservationsByRenter");
 		return ms.getNumberOfReservationsByRenter(clientName);
 	}
 
@@ -188,16 +195,19 @@ public class Client extends AbstractTestManagement<IReservationSession, IManager
 	@Override
 	protected int getNumberOfReservationsForCarType(IManagerSession ms, String carRentalName, String carType)
 			throws Exception {
+		System.out.println("Client: getNbrOfReservationForCarType");
 		return ms.getNumberOfReservationsForCarTypeForCarRentalCompany(carType, carRentalName);
 	}
 
 	@Override
 	protected IReservationSession getNewReservationSession(String name) throws Exception {
+		System.out.println("Client: getNewReservationSession");
 		return this.rentalAgency.getNewReservationSession(name);
 	}
 
 	@Override
 	protected IManagerSession getNewManagerSession(String name, String carRentalName) throws Exception {
+		System.out.println("Client: getNewManagerSession");
 		return this.rentalAgency.getNewManagerSession(name);
 	}
 }

@@ -224,16 +224,21 @@ public class RentalAgency implements IRentalAgency{
 
 	@Override 
 	public Quote createQuote(ReservationConstraints constraints, String client) throws RemoteException, ReservationException {
+		System.out.println("RentalAgency: createQuote");
 		Quote quote = null;
 		for(ICarRentalCompany carRentalCompany : getAllCarRentalCompanies()) {
 			try {
+				System.out.println("RentalAgency: Trying to make quote for " + carRentalCompany.getName());
 				return carRentalCompany.createQuote(constraints, client);
 			} catch (ReservationException e) {
-
-			} 
+				System.out.println(carRentalCompany.getName() + " could not comply to the constraints.(ReservationError)");
+			} catch (IllegalArgumentException e) {
+				System.out.println(carRentalCompany.getName() + " could not comply to the constraints. (IllegalArgument)");
+			}
 		}
 		
 		if(quote == null) throw new ReservationException("No companies have cars available for these constraints");
+		System.out.println("Succes in creating quote");
 		return quote;
 	}
 }
