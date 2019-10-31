@@ -47,4 +47,10 @@ public interface IRentalAgency extends Remote {
 	public String getCheapestCarType(Date start, Date end, String region) throws RemoteException;
 
 	public Quote createQuote(ReservationConstraints constraints, String client) throws RemoteException, ReservationException;
+
+	public void closeManagerSession(String customer) throws RemoteException;
+	
+	public void closeReservationSession(String customer) throws RemoteException;
+
+	public List<Reservation> confirmQuotes(List<Quote> quotes) throws RemoteException, ReservationException;
 }

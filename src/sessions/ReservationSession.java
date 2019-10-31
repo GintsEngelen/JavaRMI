@@ -17,12 +17,10 @@ import rental.ReservationException;
 public class ReservationSession extends Session implements IReservationSession{
 
 	private List<Quote> quotes;
-	private String customer;
 	
 	public ReservationSession(int ID, IRentalAgency rentalAgency, String customer) {
-		super(ID, rentalAgency);
+		super(ID, rentalAgency, customer);
 		this.quotes = new ArrayList<Quote>();
-		this.customer = customer;
 	}
 	
 
@@ -32,9 +30,8 @@ public class ReservationSession extends Session implements IReservationSession{
 	}
 
 	@Override
-	public List<Reservation> confirmQuotes(String name) throws RemoteException {
-		// TODO Auto-generated method stub
-		//Locking and stuff
+	public List<Reservation> confirmQuotes(String name) throws RemoteException, ReservationException {
+		this.getRentalAgency().confirmQuotes(quotes);
 		return null;
 	}
 
@@ -50,18 +47,18 @@ public class ReservationSession extends Session implements IReservationSession{
 
 	@Override
 	public void addQuote(String name, Date start, Date end, String carType, String region) throws RemoteException {
-		System.out.println("Reservation: addQuote");
 		ReservationConstraints constraints = new ReservationConstraints(start, end, carType, region);
 		try {
 			this.quotes.add(this.getRentalAgency().createQuote(constraints, name));
-			System.out.println("Reservation: Quote added succesfully");
 		} catch (ReservationException e) {
 			//No quote will be added, since there is no possible quote with given constraints
-			System.out.println("Reservation: Quote was not added");
 		}
 	}
 
-	
+	@Override
+	public void close() throws RemoteException{
+		this.getRentalAgency().closeReservationSession(this.customer);
+	}
 	
 	
 	

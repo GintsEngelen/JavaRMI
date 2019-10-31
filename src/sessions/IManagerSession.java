@@ -25,4 +25,5 @@ public interface IManagerSession extends Remote{
 
 	public int getNumberOfReservationsByRenter(String clientName) throws RemoteException;
 		
+	public void close() throws RemoteException;
 }

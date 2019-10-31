@@ -11,12 +11,9 @@ import rental.CarType;
 import rental.ICarRentalCompany;
 
 public class ManagerSession extends Session implements IManagerSession{
-	
-	private String customer;
 
 	public ManagerSession(int ID, IRentalAgency rentalAgency, String customer) {
-		super(ID, rentalAgency);
-		this.customer = customer;
+		super(ID, rentalAgency, customer);
 	}
 
 	@Override
@@ -60,6 +57,11 @@ public class ManagerSession extends Session implements IManagerSession{
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	@Override
+	public void close() throws RemoteException {
+		this.getRentalAgency().closeManagerSession(this.customer);
 	}
 
 	
