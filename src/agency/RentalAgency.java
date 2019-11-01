@@ -85,20 +85,7 @@ public class RentalAgency implements IRentalAgency{
 		}
 	}
 
-	public List<CarType> getAvailableCarTypes(Date start, Date end, String region) throws RemoteException {
-		ArrayList<CarType> types = new ArrayList<>();
-		for(ICarRentalCompany crc : this.carRentalCompanies.values()) {
-			if(crc.operatesInRegion(region)) {
-				for(CarType t : crc.getAvailableCarTypes(start, end)) {
-					types.add(t);
-				}
-			}
-		}
-		return types;
-	}
-
 	@Override
-
 	public void addCarRentalCompany(String crcName) throws RemoteException {
 		try {
 			ICarRentalCompany carRentalCompany = (ICarRentalCompany) registry.lookup(crcName);
@@ -110,7 +97,6 @@ public class RentalAgency implements IRentalAgency{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override

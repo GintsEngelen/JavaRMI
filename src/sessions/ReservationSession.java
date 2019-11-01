@@ -31,8 +31,7 @@ public class ReservationSession extends Session implements IReservationSession{
 
 	@Override
 	public List<Reservation> confirmQuotes(String name) throws RemoteException, ReservationException {
-		this.getRentalAgency().confirmQuotes(quotes);
-		return null;
+		return this.getRentalAgency().confirmQuotes(quotes);
 	}
 
 	@Override
